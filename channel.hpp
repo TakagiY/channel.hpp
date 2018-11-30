@@ -108,9 +108,9 @@ namespace channel {
       write_cv.wait(lock, [this] { return receiver != nullptr; });
       *receiver = std::forward<U>(x);
       to_return = receiver;
-      return_cv.notify_all();
       receiver = nullptr;
       read_cv.notify_one();
+      return_cv.notify_all();
     }
 
   public:
