@@ -2,10 +2,7 @@
 # Distributed under the Boost Software License, Version 1.0.
 # (See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt)
 
-CXX = clang++
-CXXFLAGS = -std=c++11
-
-.PHONY: test test/clean
+.PHONY: test clean test/clean
 
 test: test/test
 	test/test
@@ -15,6 +12,8 @@ test/test: test/catch.hpp test/test.cpp channel.hpp
 
 test/catch.hpp:
 	wget -P test https://github.com/catchorg/Catch2/releases/download/v2.4.2/catch.hpp
+
+clean: test/clean
 
 test/clean:
 	rm -f test/catch.hpp
