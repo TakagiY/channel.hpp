@@ -1,0 +1,28 @@
+language: cpp
+os: linux
+dist: xenial
+
+addons:
+    apt:
+        sources:
+            - ubuntu-toolchain-r-test
+        packages:
+            - libstdc++-8-dev
+
+compiler:
+    - gcc
+    - clang
+
+env:
+    - CXXFLAGS='-std=c++11'
+    - CXXFLAGS='-std=c++14'
+    - CXXFLAGS='-std=c++17 -coverage'
+
+script:
+    - make test
+
+after_success:
+    - |
+      if [[ $CXXFLAGS = '-std=c++17 -coverage' ]] && [[ $CXX = 'clang++' ]]; then
+        bash <(curl -s https://codecov.io/bash) -x 'llvm-cov gcov'
+      fi

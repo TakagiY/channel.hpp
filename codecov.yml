@@ -1,0 +1,3 @@
+ignore:
+    - test/catch.hpp
+    - test/test.cpp
