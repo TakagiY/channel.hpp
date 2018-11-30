@@ -53,7 +53,7 @@ namespace channel {
       std::unique_lock<std::mutex> lock{mutex};
       read_cv.wait(lock, [this] { return length != 0; });
       advance(read_head);
-      auto x = *read_head;
+      auto x = std::move(*read_head);
       --length;
       write_cv.notify_one();
       return x;
@@ -85,7 +85,7 @@ namespace channel {
     auto pull() -> T {
       std::unique_lock<std::mutex> lock{mutex};
       read_cv.wait(lock, [this] { return length; });
-      auto x = buffer;
+      auto x = std::move(buffer);
       length = false;
       write_cv.notify_one();
       return x;
