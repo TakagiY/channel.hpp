@@ -5,9 +5,34 @@
 #include "../channel.hpp"
 #include <cstddef>
 #include <functional>
+#include <string>
 #include <thread>
 #define CATCH_CONFIG_MAIN
 #include "./catch.hpp"
+
+TEST_CASE("Example on README.md", "[chan] [readme]") {
+  channel::chan<std::string> chan;
+
+  auto t1 = std::thread(
+      [](channel::chan<std::string> &chan) {
+        chan.push("Who are you?");
+        std::string name = chan.pull();
+        chan.push("Nice to meet you, " + name + ".");
+      },
+      std::ref(chan));
+
+  auto t2 = std::thread(
+      [](channel::chan<std::string> &chan) {
+        chan.pull();
+        chan.push("John");
+        std::string message = chan.pull();
+        CHECK(message == "Nice to meet you, John.");
+      },
+      std::ref(chan));
+
+  t1.join();
+  t2.join();
+}
 
 TEST_CASE("chan<int, 3> can buffer three integers whitout blocking.",
           "[chan]") {
