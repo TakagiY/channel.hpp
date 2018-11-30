@@ -61,7 +61,7 @@ namespace channel {
   };
 
   template <class T>
-  struct chan<T, 0> {
+  struct chan<T, 1> {
   private:
     T buffer;
     bool length = false;
@@ -88,6 +88,46 @@ namespace channel {
       auto x = buffer;
       length = false;
       write_cv.notify_one();
+      return x;
+    }
+  };
+
+  template <class T>
+  struct chan<T, 0> {
+  private:
+    T *receiver = nullptr;
+    T *to_return;
+    std::mutex mutex;
+    std::condition_variable write_cv;
+    std::condition_variable read_cv;
+    std::condition_variable return_cv;
+
+    template <class U>
+    auto push_(U &&x) -> void {
+      std::unique_lock<std::mutex> lock{mutex};
+      write_cv.wait(lock, [this] { return receiver != nullptr; });
+      *receiver = std::forward<U>(x);
+      to_return = receiver;
+      return_cv.notify_all();
+      receiver = nullptr;
+      read_cv.notify_one();
+    }
+
+  public:
+    auto push(T const &x) -> void { push_(x); }
+    auto push(T &&x) -> void { push_(std::move(x)); }
+
+    auto pull() -> T {
+      T x;
+      {
+        std::unique_lock<std::mutex> lock{mutex};
+        read_cv.wait(lock, [this] { return receiver == nullptr; });
+        receiver = &x;
+        write_cv.notify_one();
+      }
+      std::unique_lock<std::mutex> lock{mutex};
+      return_cv.wait(lock, [this, &x] { return to_return == &x; });
+      to_return = nullptr;
       return x;
     }
   };

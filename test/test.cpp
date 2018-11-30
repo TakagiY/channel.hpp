@@ -9,7 +9,8 @@
 #define CATCH_CONFIG_MAIN
 #include "./catch.hpp"
 
-TEST_CASE("chan<int, 3> can buffer three integers.", "[chan]") {
+TEST_CASE("chan<int, 3> can buffer three integers whitout blocking.",
+          "[chan]") {
   channel::chan<int, 3> chan;
   for (std::size_t i = 0; i < 97; i += 3) {
     chan.push(i);
@@ -21,7 +22,8 @@ TEST_CASE("chan<int, 3> can buffer three integers.", "[chan]") {
   }
 }
 
-TEST_CASE("chan<int, 0> can move integers between threads.", "[chan]") {
+TEST_CASE("chan<int> can move integers between threads.",
+          "[chan] [bufferless]") {
   channel::chan<int> chan;
   auto produce = [](channel::chan<int> &chan) {
     for (std::size_t i = 0; i < 100; ++i) {
