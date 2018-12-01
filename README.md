@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/TakagiY/channel.hpp.svg?branch=master)](https://travis-ci.org/TakagiY/channel.hpp)
 [![codecov](https://codecov.io/gh/TakagiY/channel.hpp/branch/master/graph/badge.svg)](https://codecov.io/gh/TakagiY/channel.hpp)
+[![license BSL 1.0](https://img.shields.io/badge/license-BSL%201.0-green.svg)](LICENSE)
 
 ```C++
 #include "channel.hpp"
@@ -32,4 +33,10 @@ int main() {
   t2.join();
 }
 ```
+
+# License
+
+Copyright (c) TakagiY 2018  
+Distributed under the Boost Software License, Version 1.0.  
+(See accompanying file [LICENSE](LICENSE) or copy at http://boost.org/LICENSE_1_0.txt)
 
