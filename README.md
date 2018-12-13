@@ -1,7 +1,7 @@
 # channel.hpp - Lightweight go-like inter-thread communication in C++
 
-[![Build Status](https://travis-ci.org/TakagiY/channel.hpp.svg?branch=master)](https://travis-ci.org/TakagiY/channel.hpp)
-[![codecov](https://codecov.io/gh/TakagiY/channel.hpp/branch/master/graph/badge.svg)](https://codecov.io/gh/TakagiY/channel.hpp)
+[![Build Status](https://travis-ci.org/takagiy/channel.hpp.svg?branch=master)](https://travis-ci.org/takagiy/channel.hpp)
+[![codecov](https://codecov.io/gh/takagiy/channel.hpp/branch/master/graph/badge.svg)](https://codecov.io/gh/takagiy/channel.hpp)
 [![license BSL 1.0](https://img.shields.io/badge/license-BSL%201.0-green.svg)](LICENSE)
 
 ```C++
