@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/takagiy/channel.hpp.svg?branch=master)](https://travis-ci.org/takagiy/channel.hpp)
 [![codecov](https://codecov.io/gh/takagiy/channel.hpp/branch/master/graph/badge.svg)](https://codecov.io/gh/takagiy/channel.hpp)
-[![license BSL 1.0](https://img.shields.io/badge/license-BSL%201.0-green.svg)](LICENSE)
+[![license BSL-1.0](https://img.shields.io/badge/License-BSL--1.0-blue.svg)](LICENSE)
 
 ```C++
 #include "channel.hpp"
